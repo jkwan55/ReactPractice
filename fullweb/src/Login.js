@@ -9,9 +9,13 @@ const Login = () => {
     const handleSubmit = async e => {
         e.preventDefault();
         const user = { username, password };
-        const response = await axios.post(
-            'http://localhost:9000/login', user
-        );
+        const response = user;
+        await axios.post(
+            'http://localhost:9000/login/checkUser', user
+        ).then(res => {response = res})
+        .catch(err => {
+            alert(err);
+        });
         setUser(response.data)
         localStorage.setItem('user', response.data)
         console.log(response.data)
